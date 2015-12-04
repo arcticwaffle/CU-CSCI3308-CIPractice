@@ -145,6 +145,31 @@ START_TEST(test_2d_midpoint)
 }
 END_TEST
 
+START_TEST(test_coord_2d_area_triangle)
+{
+    coord_2d_t a;
+    coord_2d_t b;
+    coord_2d_t c;
+    const double EPSILON = 0.001;
+
+    a.x = 15;
+    a.y = 15;
+    b.x = 23;
+    b.y = 30;
+    c.x = 50;
+    c.y = 25;
+    ck_assert(abs(222.5 - coord_2d_area_triangle(&a, &b, &c)) < EPSILON);
+
+    a.x = 7;
+    a.y = 33;
+    b.x = 42;
+    b.y = 28;
+    c.x = 51;
+    c.y = 13;
+    ck_assert(abs(240.0 - coord_2d_area_triangle(&a, &b, &c)) < EPSILON);
+}
+END_TEST
+
 /* coord_2d Test Suite */
 Suite* coord_2d_suite(void)
 {
@@ -162,10 +187,14 @@ Suite* coord_2d_suite(void)
     TCase* tc_2d_midpoint = tcase_create("coord_2d_midpoint");
     tcase_add_test(tc_2d_midpoint, test_2d_midpoint);
 
+    TCase* tc_coord_2d_area_triangle = tcase_create("coord_2d_area_triangle");
+    tcase_add_test(tc_coord_2d_area_triangle, test_coord_2d_area_triangle);
+
     /* Add Cases to Suite */
     suite_add_tcase(s, tc_2d_eq);
     suite_add_tcase(s, tc_2d_dist);
     suite_add_tcase(s, tc_2d_midpoint);
+    suite_add_tcase(s, tc_coord_2d_area_triangle);
 
     /* Return Suite */
     return s;

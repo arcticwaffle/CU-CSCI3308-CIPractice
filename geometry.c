@@ -36,8 +36,18 @@ double coord_2d_dist(const coord_2d_t* a, const coord_2d_t* b){
 
 }
 
-bool coord_2d_eq(const coord_2d_t* a, const coord_2d_t* b){
 
+double coord_2d_area_triangle(const coord_2d_t* a, const coord_2d_t* b, const coord_2d_t* c) {
+	double p1 = a->x * (b->y - c->y);
+	double p2 = b->x * (c->y - a->y);
+	double p3 = c->x * (a->y - b->y);
+
+	double sum = (p1 + p2 + p3)/2;
+	printf("Area: %f\n", sum);
+	return abs(sum);
+}
+
+bool coord_2d_eq(const coord_2d_t* a, const coord_2d_t* b) {
     /* Equal if dist <= FUZZY_EQ */
     if(coord_2d_dist(a, b) <= FUZZY_EQ){
         return true;
